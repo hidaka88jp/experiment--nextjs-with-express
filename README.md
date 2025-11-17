@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# experiment--nextjs-with-express
 
-## Getting Started
+## 📌 Overview
 
-First, run the development server:
+This is an experimental spike project built with Next.js + Express + Prisma + MySQL.
+The purpose of this repository is to:
+- Explore the integration between a Next.js frontend and an Express backend
+- Experiment with API design and database interactions using Prisma
+- Prototype a simple login flow and message board system
+- Learn and validate architecture decisions before building a production-ready app
+  
+This project is not production-ready.
+Many parts will be simplified or intentionally incomplete (e.g., no authentication, no security, no error handling, etc.).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🧪 Spike Characteristics
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Authentication is simplified (no JWT / cookie yet)
+- Passwords are stored in plain text (ONLY for prototyping)
+- Error handling is minimal
+- No production-level architecture or optimization
+- Structure and naming may change rapidly
+- Purpose is speed & learning, not code quality
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠 Tech Stack
+- Next.js (App Router)
+- Express (REST API)
+- Prisma ORM
+- MySQL (Docker)
+- Tailwind CSS
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Goal
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Once the spike succeeds,
+a clean, production-quality full-stack project will be created separately (as a portfolio piece).
