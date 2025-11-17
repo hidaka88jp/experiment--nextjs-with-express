@@ -3,6 +3,7 @@
 ## 📌 Overview
 
 This is an experimental spike project built with Next.js + Express + Prisma + MySQL.
+
 The purpose of this repository is to:
 - Explore the integration between a Next.js frontend and an Express backend
 - Experiment with API design and database interactions using Prisma
