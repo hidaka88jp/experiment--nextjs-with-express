@@ -3,11 +3,8 @@ import { redirect } from "next/navigation";
 
 export default async function DashboardPage() {
   const cookieStore = await cookies();
-  const user = cookieStore.get("user");
+  const userId = cookieStore.get("userId");
+  if (!userId) redirect("/login");
 
-  if (!user) {
-    redirect("/login");
-  }
-  
-  return <div>Welcome {user.value}</div>;
+  return <div>Welcome to Dashboard</div>;
 }

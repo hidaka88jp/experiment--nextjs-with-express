@@ -28,7 +28,7 @@ export async function loginAction(
 
   // Cookie セット（必要なら）
   const cookieStore = await cookies();
-  cookieStore.set("user", user.name, {
+  cookieStore.set("userId", user.id, {
     httpOnly: true,
     secure: true,
   });
