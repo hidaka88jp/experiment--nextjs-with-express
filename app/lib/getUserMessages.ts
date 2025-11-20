@@ -1,6 +1,14 @@
 import { cookies } from "next/headers";
 
-export async function getUserMessages() {
+export type Message = {
+  id: number;
+  message: string;
+  userId: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export async function getUserMessages(): Promise<Message[]> {
   const cookieStore = await cookies();
   const token = cookieStore.get("session_token");
   if (!token) return [];

@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 
 import { LogoutButton } from "@/components/LogoutButton";
 import { getUserBySession } from "@/app/lib/getUserBySession";
+import { getUserMessages } from "@/app/lib/getUserMessages";
 
 export default async function DashboardPage() {
   const cookieStore = await cookies();
@@ -10,10 +11,16 @@ export default async function DashboardPage() {
   if (!token) redirect("/login");
 
   const user = await getUserBySession();
+  const messages = await getUserMessages();
 
   return (
     <div>
       <p>Welcome {user.name}</p>
+      <ul>
+        {messages.map((msg) => (
+          <li key={msg.id}>{msg.message}</li>
+        ))}
+      </ul>
       <LogoutButton />
     </div>
   );
