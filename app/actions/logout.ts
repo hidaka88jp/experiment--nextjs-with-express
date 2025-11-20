@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 
 export async function logoutAction() {
   const cookieStore = await cookies();
-  cookieStore.delete("userId"); // 👈 Cookie 削除
+  cookieStore.delete("session_token"); // 👈 Cookie 削除
 
   redirect("/login"); // 👈 ログインページへ戻す
 }

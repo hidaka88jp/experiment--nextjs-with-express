@@ -24,13 +24,16 @@ export async function loginAction(
     return { error: "ログインに失敗しました" };
   }
 
-  const user = await res.json();
+  // Express 側から session_token を受け取る
+  const data = await res.json();
+  const token = data.session_token;
 
-  // Cookie セット（必要なら）
+  // Cookie に session_token を保存
   const cookieStore = await cookies();
-  cookieStore.set("userId", user.id, {
+  cookieStore.set("session_token", token, {
     httpOnly: true,
     secure: true,
+    sameSite: "strict",
   });
 
   redirect("/dashboard");

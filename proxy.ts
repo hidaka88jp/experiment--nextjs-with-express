@@ -3,10 +3,10 @@ import type { NextRequest } from "next/server";
 
 export function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  const userId = req.cookies.get("userId");
+  const token = req.cookies.get("session_token");
 
   // 例： /dashboard を保護する
-  if (pathname.startsWith("/dashboard") && !userId) {
+  if (pathname.startsWith("/dashboard") && !token) {
     console.log("[proxy] redirect → /login");
     return NextResponse.redirect(new URL("/login", req.url));
   }
