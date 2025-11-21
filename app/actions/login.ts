@@ -36,5 +36,5 @@ export async function loginAction(
     sameSite: "strict",
   });
 
-  redirect("/dashboard");
+  redirect("/");
 }

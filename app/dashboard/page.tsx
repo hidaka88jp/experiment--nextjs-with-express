@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 import { LogoutButton } from "@/components/LogoutButton";
 import { getUserBySession } from "@/app/lib/getUserBySession";
@@ -21,6 +22,7 @@ export default async function DashboardPage() {
           <li key={msg.id}>{msg.message}</li>
         ))}
       </ul>
+      <Link href="/">Go to Top Page </Link>
       <LogoutButton />
     </div>
   );
