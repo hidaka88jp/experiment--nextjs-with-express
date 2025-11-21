@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
 
+import { PostForm } from "@/components/PostForm";
+
 export default async function Home() {
   const cookieStore = await cookies();
   const token = cookieStore.get("session_token");
