@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 
 import { LogoutButton } from "@/components/LogoutButton";
+import { EditForm } from "@/components/EditForm";
 import { getUserBySession } from "@/app/lib/getUserBySession";
 import { getUserMessages } from "@/app/lib/getUserMessages";
 import { deleteMessageAction } from "@/app/actions/deleteMessage";
@@ -23,7 +24,9 @@ export default async function DashboardPage() {
           <li key={msg.id} className="my-2">
             {msg.message}
 
-            {/* 削除フォーム */}
+            <EditForm id={msg.id} initialMessage={msg.message} />
+
+            {/* Delete Form */}
             <form
               action={async () => {
                 "use server";

@@ -1,9 +1,11 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
-export async function updateMessageAction(messageId: number, newMessage: string) {
+export async function updateMessageAction(formData: FormData) {
+  const id = Number(formData.get("id"));
+  const message = formData.get("message") as string;
+
   const cookieStore = await cookies();
   const token = cookieStore.get("session_token");
 
@@ -11,21 +13,14 @@ export async function updateMessageAction(messageId: number, newMessage: string)
     throw new Error("Not authenticated");
   }
 
-  const res = await fetch(
-    `${process.env.INTERNAL_MESSAGES_URL}/${messageId}`,
-    {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token.value, // To send authentication token to Express API
-      },
-      body: JSON.stringify({ message: newMessage }),
-    }
-  );
+  await fetch(`${process.env.INTERNAL_MESSAGES_URL}/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token.value,
+    },
+    body: JSON.stringify({ message }),
+  });
 
-  if (!res.ok) {
-    throw new Error("Failed to update message");
-  }
-
-  redirect("/dashboard");
+  // Do not use redirect here; let the client handle it
 }
