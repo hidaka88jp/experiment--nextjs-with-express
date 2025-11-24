@@ -15,7 +15,8 @@ export default async function Home() {
   const messages = await getAllMessages();
 
   return (
-    <>
+    <div className='px-4 pt-4 pb-5 sm:px-8 sm:pt-9 sm:pb-7'>
+      <div className='mx-auto flex w-full max-w-94 sm:max-w-md flex-col'>
       {isLoggedIn ? (
         <PostForm />
       ) : (
@@ -33,6 +34,7 @@ export default async function Home() {
       </ul>
       {isLoggedIn && <Link href="/dashboard">Go to Dashboard</Link>}
       {isLoggedIn && <LogoutButton />}
-    </>
+      </div>
+    </div>
   );
 }
