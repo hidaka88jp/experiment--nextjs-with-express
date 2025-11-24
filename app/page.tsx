@@ -4,7 +4,7 @@ import { getAllMessages } from "@/app/lib/getAllMessages";
 
 import { PostForm } from "@/components/PostForm";
 import { LogoutButton } from "@/components/LogoutButton";
-
+import { GuestLoginButton } from "@/components/GuestLoginButton";
 
 export default async function Home() {
   const cookieStore = await cookies();
@@ -17,10 +17,19 @@ export default async function Home() {
   return (
     <>
       <p>Message Board</p>
-      {isLoggedIn ? <PostForm /> : <Link href="/login">Login</Link>}
+      {isLoggedIn ? (
+        <PostForm />
+      ) : (
+        <>
+          <Link href="/login">Login</Link>
+          <GuestLoginButton />
+        </>
+      )}
       <ul className="my-8">
         {messages.map((msg) => (
-          <li key={msg.id}><b>{msg.user.name}:</b> {msg.message}</li>
+          <li key={msg.id}>
+            <b>{msg.user.name}:</b> {msg.message}
+          </li>
         ))}
       </ul>
       {isLoggedIn && <Link href="/dashboard">Go to Dashboard</Link>}
