@@ -5,7 +5,6 @@ import { getAllMessages } from "@/app/lib/getAllMessages";
 import { PostForm } from "@/components/PostForm";
 import { LogoutButton } from "@/components/LogoutButton";
 import { GuestLoginButton } from "@/components/GuestLoginButton";
-import { Header } from "@/components/Header";
 
 export default async function Home() {
   const cookieStore = await cookies();
@@ -17,7 +16,6 @@ export default async function Home() {
 
   return (
     <>
-      <Header />
       {isLoggedIn ? (
         <PostForm />
       ) : (
