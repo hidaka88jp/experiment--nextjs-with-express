@@ -1,10 +1,19 @@
-import { RegisterForm } from "@/components/RegisterForm";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import RegisterForm from "@/components/RegisterForm";
 
-export default function RegisterPage() {
+export default async function RegisterPage() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("session_token");
+
+  if (token) {
+    redirect("/dashboard");
+  }
+
   return (
-    <div>
-      <h2>Register</h2>
+    <>
+      <p>Register</p>
       <RegisterForm />
-    </div>
+    </>
   );
 }

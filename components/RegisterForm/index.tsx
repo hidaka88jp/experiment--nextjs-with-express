@@ -3,7 +3,7 @@
 import { useActionState } from "react";
 import { registerAction } from "@/app/actions/registerAction";
 
-export function RegisterForm() {
+export default function RegisterForm() {
   const [state, formAction] = useActionState(registerAction, {});
 
   return (
