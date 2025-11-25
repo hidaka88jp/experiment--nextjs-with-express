@@ -24,10 +24,9 @@ export default async function DashboardPage() {
         </h2>
         <ul className="my-8">
           {messages.map((msg) => (
-            <li key={msg.id} className="my-2 py-2 border-b border-zinc-500 flex justify-between items-center">
-              {msg.message}
+            <li key={msg.id} className="my-2 py-2 border-b border-zinc-500">
 
-              <div className="flex justify-between gap-1">
+              <div className="flex justify-between gap-1 items-center">
                 <EditForm id={msg.id} initialMessage={msg.message} />
                 {/* Delete Form */}
                 <form
