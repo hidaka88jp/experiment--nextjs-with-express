@@ -24,7 +24,7 @@ export function RegisterForm() {
 
       {state.error && <p className="text-red-600">{state.error}</p>}
 
-      <button type="submit" className="px-3 py-1 bg-sky-700 text-gray-50 border border-sky-700 rounded-md text-center hover:bg-transparent hover:text-sky-700 mb-5 w-full">
+      <button type="submit" className="px-3 py-1 bg-sky-700 text-gray-50 border border-sky-700 rounded-md text-center hover:bg-transparent hover:text-sky-700 w-full">
         Register
       </button>
     </form>

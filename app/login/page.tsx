@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 import LoginForm from "@/components/LoginForm";
 
@@ -13,6 +14,12 @@ export default async function loginPage() {
       <div className="mx-auto flex w-full max-w-94 sm:max-w-md flex-col">
         <h2 className="text-xl font-medium text-center border-b-2 border-zinc-600">Login page</h2>
         <LoginForm />
+        <Link
+          href="/"
+          className="px-3 py-1 bg-zinc-700 text-gray-50 border border-zinc-700 rounded-md text-center hover:bg-transparent hover:text-zinc-700"
+        >
+          Go to Top Page{" "}
+        </Link>
       </div>
     </div>
   );
