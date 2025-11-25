@@ -18,7 +18,7 @@ export function EditForm({ id, initialMessage }: { id: number; initialMessage: s
   return (
     <div>
       {!open && (
-        <button onClick={() => setOpen(true)}>Edit</button>
+        <button onClick={() => setOpen(true)} className="px-2 py-1 bg-teal-700 text-gray-50 border border-teal-700 rounded-md text-center hover:bg-transparent hover:text-teal-700">Edit</button>
       )}
 
       {open && (
