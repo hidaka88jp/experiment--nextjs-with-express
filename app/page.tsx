@@ -27,7 +27,7 @@ export default async function Home() {
       )}
       <ul className="my-8">
         {messages.map((msg) => (
-          <li key={msg.id}>
+          <li key={msg.id} className="my-2 py-2 border-b border-zinc-500">
             <b>{msg.user.name}:</b> {msg.message}
           </li>
         ))}
