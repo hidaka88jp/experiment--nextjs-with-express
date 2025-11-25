@@ -32,7 +32,7 @@ export default async function Home() {
           </li>
         ))}
       </ul>
-      {isLoggedIn && <Link href="/dashboard">Go to Dashboard</Link>}
+      {isLoggedIn && <Link href="/dashboard" className="px-3 py-1 bg-zinc-700 text-gray-50 border border-zinc-700 rounded-md text-center hover:bg-transparent hover:text-zinc-700 mb-5">Go to Dashboard</Link>}
       {isLoggedIn && <LogoutButton />}
       </div>
     </div>

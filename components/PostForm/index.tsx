@@ -23,7 +23,7 @@ export function PostForm() {
   return (
     <form action={handleAction} className="flex items-center gap-1">
       <input name="message" type="text" placeholder="Write a message..." className="border border-zinc-800 rounded-md py-1 px-2 grow" />
-      <button type="submit" className="border bg-zinc-700 border-zinc-700 text-gray-50 px-3 py-1 rounded-md hover:bg-gray-50 hover:text-zinc-800 cursor-pointer">Post</button>
+      <button type="submit" className="border bg-teal-700 border-teal-700 text-gray-50 px-3 py-1 rounded-md hover:bg-gray-50 hover:text-teal-700 cursor-pointer">Post</button>
 
       {error && <p className="text-red-400 text-sm mt-1 w-full">{error}</p>}
     </form>
