@@ -13,7 +13,7 @@ export async function updateMessageAction(formData: FormData) {
     throw new Error("Not authenticated");
   }
 
-  await fetch(`${process.env.INTERNAL_MESSAGES_URL}/${id}`, {
+  const res = await fetch(`${process.env.INTERNAL_MESSAGES_URL}/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -21,6 +21,21 @@ export async function updateMessageAction(formData: FormData) {
     },
     body: JSON.stringify({ message }),
   });
+
+  if (!res.ok) {
+    let errorMessage = "Failed to update message";
+
+    try {
+      const data = await res.json();
+      if (data.error) {
+        errorMessage = data.error;
+      }
+    } catch {
+      // Ignore JSON parsing errors
+    }
+
+    return { error: errorMessage };
+  }
 
   // Do not use redirect here; let the client handle it
 }
