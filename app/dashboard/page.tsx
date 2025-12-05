@@ -7,6 +7,7 @@ import { EditForm } from "@/components/EditForm";
 import { getUserBySession } from "@/app/lib/getUserBySession";
 import { getUserMessages } from "@/app/lib/getUserMessages";
 import { deleteMessageAction } from "@/app/actions/deleteMessage";
+import { DeleteButton } from "@/components/DeleteButton";
 
 export default async function DashboardPage() {
   const cookieStore = await cookies();
@@ -28,18 +29,7 @@ export default async function DashboardPage() {
 
               <div className="flex justify-between gap-1 items-center">
                 <EditForm id={msg.id} initialMessage={msg.message} />
-                {/* Delete Form */}
-                <form
-                  action={async () => {
-                    "use server";
-                    await deleteMessageAction(msg.id);
-                  }}
-                  style={{ display: "inline" }}
-                >
-                  <button type="submit" className="px-2 py-1 bg-rose-700 text-gray-50 border border-rose-700 rounded-md text-center hover:bg-transparent hover:text-rose-700">
-                    Delete
-                  </button>
-                </form>
+                <DeleteButton id={msg.id} action={deleteMessageAction} />
               </div>
             </li>
           ))}
