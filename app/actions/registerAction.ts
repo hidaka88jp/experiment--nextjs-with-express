@@ -20,7 +20,18 @@ export async function registerAction(
   });
 
   if (!res.ok) {
-    return { error: "Fail to register" };
+    let errorMessage = "Fail to register";
+
+    try {
+      const data = await res.json();
+      if (data.error) {
+        errorMessage = data.error;
+      }
+    } catch {
+      // Ignore JSON parsing errors
+    }
+
+    return { error: errorMessage };
   }
 
   // if registration is successful, redirect to login page
