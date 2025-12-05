@@ -20,21 +20,32 @@ export async function loginAction(
     body: JSON.stringify({ name, password }),
   });
 
+  // 🔥 バックエンドのメッセージを拾う
   if (!res.ok) {
-    return { error: "ログインに失敗しました" };
+    let message = "Login failed";
+
+    try {
+      const data = await res.json();
+      if (data.error) {
+        message = data.error;
+      }
+    } catch {
+      // JSON がパースできなかった時だけ無視
+    }
+
+    return { error: message };
   }
 
-  // Express 側から session_token を受け取る
   const data = await res.json();
   const token = data.session_token;
 
-  // Cookie に session_token を保存
-  const cookieStore = await cookies();
-  cookieStore.set("session_token", token, {
+  // Cookie 保存
+  (await cookies()).set("session_token", token, {
     httpOnly: true,
     secure: true,
     sameSite: "strict",
   });
 
+  // 🔥 成功時は redirect（state は返さず中断して遷移）
   redirect("/");
 }
