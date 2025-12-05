@@ -9,8 +9,8 @@ export async function guestLoginAction() {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      name: "Guest",
-      password: "guest",
+      name: process.env.GUEST_NAME,
+      password: process.env.GUEST_PASS,
     }),
   });
 
