@@ -7,10 +7,13 @@ export async function getUserBySession() {
   if (!token) return null; // 未ログイン
 
   // 1. token → userId の取得
-  const validateRes = await fetch(
-    `${process.env.INTERNAL_VALIDATE_URL}?token=${token.value}`,
-    { cache: "no-store" }
-  );
+  const validateRes = await fetch(process.env.INTERNAL_VALIDATE_URL!, {
+    method: "POST",
+    headers: {
+      Authorization: token.value,
+    },
+    cache: "no-store",
+  });
 
   if (!validateRes.ok) return null;
 
