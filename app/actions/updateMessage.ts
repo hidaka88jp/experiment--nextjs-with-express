@@ -4,8 +4,28 @@ import { cookies } from "next/headers";
 
 export async function updateMessageAction(formData: FormData) {
   const id = Number(formData.get("id"));
-  const message = formData.get("message") as string;
+  const raw = formData.get("message");
 
+  // --- Validation ---
+  if (!Number.isFinite(id) || id <= 0) {
+    return { error: "Invalid message id" };
+  }
+
+  if (typeof raw !== "string") {
+    return { error: "Invalid message format" };
+  }
+
+  const message = raw;
+
+  if (message.trim().length === 0) {
+    return { error: "Message cannot be empty" };
+  }
+
+  if (message.length > 500) {
+    return { error: "Message too long (max 500)" };
+  }
+
+  // --- Authentication ---
   const cookieStore = await cookies();
   const token = cookieStore.get("session_token");
 
