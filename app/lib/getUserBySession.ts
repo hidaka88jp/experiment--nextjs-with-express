@@ -5,9 +5,9 @@ export async function getUserBySession() {
     const cookieStore = await cookies();
     const token = cookieStore.get("session_token");
 
-    if (!token) return null; // 未ログイン
+    if (!token) return null; // unlogined
 
-    // 1. token → userId の取得
+    // 1. token → userId
     const validateRes = await fetch(process.env.INTERNAL_VALIDATE_URL!, {
       method: "POST",
       headers: {
@@ -20,7 +20,7 @@ export async function getUserBySession() {
 
     const { userId } = await validateRes.json();
 
-    // 2. userId → user 情報の取得
+    // 2. userId → user info
     const userRes = await fetch(`${process.env.INTERNAL_USER_URL}/${userId}`, {
       cache: "no-store",
     });
