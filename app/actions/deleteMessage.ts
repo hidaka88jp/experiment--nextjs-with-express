@@ -5,6 +5,10 @@ import { cookies } from "next/headers";
 export async function deleteMessageAction(
   messageId: number
 ): Promise<{ error?: string; success?: boolean }> {
+  if (!Number.isFinite(messageId) || messageId <= 0) {
+    return { error: "Invalid message id" };
+  }
+
   const token = (await cookies()).get("session_token")?.value;
 
   if (!token) {
