@@ -11,11 +11,19 @@ export type Message = {
 };
 
 export async function getAllMessages(): Promise<Message[]> {
-  const res = await fetch(`${process.env.INTERNAL_MESSAGES_URL}`, {
-    cache: "no-store",
-  });
+  try {
+    const res = await fetch(`${process.env.INTERNAL_MESSAGES_URL}`, {
+      cache: "no-store",
+    });
 
-  if (!res.ok) return [];
+    if (!res.ok) {
+      console.error("Failed to fetch messages:", res.status);
+      return [];
+    }
 
-  return res.json();
+    return res.json();
+  } catch (err) {
+    console.error("Network error while fetching messages:", err);
+    return [];
+  }
 }

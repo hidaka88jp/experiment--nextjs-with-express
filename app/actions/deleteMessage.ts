@@ -1,31 +1,39 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
-export async function deleteMessageAction(messageId: number) {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("session_token");
+export async function deleteMessageAction(
+  messageId: number
+): Promise<{ error?: string; success?: boolean }> {
+  if (!Number.isFinite(messageId) || messageId <= 0) {
+    return { error: "Invalid message id" };
+  }
+
+  const token = (await cookies()).get("session_token")?.value;
 
   if (!token) {
-    throw new Error("Not authenticated");
+    return { error: "Not authenticated" };
   }
 
-  // Access the backend API to delete the message
-  const res = await fetch(
-    `${process.env.INTERNAL_MESSAGES_URL}/${messageId}`,
-    {
-      method: "DELETE",
-      headers: {
-        Authorization: token.value, // ← backend expects token in Authorization header
-      },
-    }
-  );
+  const res = await fetch(`${process.env.INTERNAL_MESSAGES_URL}/${messageId}`, {
+    method: "DELETE",
+    headers: { Authorization: token },
+  });
 
   if (!res.ok) {
-    throw new Error("Failed to delete message");
+    let errorMessage = "Failed to delete message";
+
+    try {
+      const data = await res.json();
+      if (data.error) {
+        errorMessage = data.error;
+      }
+    } catch {
+      // Ignore JSON parsing errors
+    }
+
+    return { error: errorMessage };
   }
 
-  // after deletion, redirect to dashboard
-  redirect("/dashboard");
+  return { success: true };
 }

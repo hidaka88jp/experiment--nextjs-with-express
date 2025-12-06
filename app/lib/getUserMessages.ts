@@ -9,19 +9,28 @@ export type Message = {
 };
 
 export async function getUserMessages(): Promise<Message[]> {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("session_token");
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("session_token");
 
-  if (!token) return []; // unlogined
-  const res = await fetch(process.env.INTERNAL_MESSAGES_USER_URL!, {
-    method: "GET",
-    headers: {
-      Authorization: token.value,
-    },
-    cache: "no-store", // set to SSR
-  });
+    if (!token) return []; // unlogged-in
 
-  if (!res.ok) return [];
+    const res = await fetch(process.env.INTERNAL_MESSAGES_USER_URL!, {
+      method: "GET",
+      headers: {
+        Authorization: token.value,
+      },
+      cache: "no-store",
+    });
 
-  return res.json();
+    if (!res.ok) {
+      console.error("Failed to fetch user messages:", res.status);
+      return [];
+    }
+
+    return res.json();
+  } catch (err) {
+    console.error("getUserMessages error:", err);
+    return [];
+  }
 }

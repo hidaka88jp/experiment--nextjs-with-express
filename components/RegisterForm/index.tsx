@@ -7,24 +7,24 @@ export function RegisterForm() {
   const [state, formAction] = useActionState(registerAction, {});
 
   return (
-    <form action={formAction} className="flex flex-col gap-4">
+    <form action={formAction} className="my-8">
       <input
         name="name"
         placeholder="Name"
         required
-        className="border p-2"
+        className="w-full border border-gray-400 px-2 py-1 rounded-md mb-2"
       />
       <input
         type="password"
         name="password"
         placeholder="Password"
         required
-        className="border p-2"
+        className="w-full border border-gray-400 px-2 py-1 rounded-md mb-2"
       />
 
       {state.error && <p className="text-red-600">{state.error}</p>}
 
-      <button type="submit" className="bg-blue-500 text-white p-2">
+      <button type="submit" className="px-3 py-1 bg-sky-700 text-gray-50 border border-sky-700 rounded-md text-center hover:bg-transparent hover:text-sky-700 w-full">
         Register
       </button>
     </form>
