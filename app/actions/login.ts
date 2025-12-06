@@ -14,13 +14,18 @@ export async function loginAction(
   const name = formData.get("name");
   const password = formData.get("password");
 
+  // Basic validation
+  if (typeof name !== "string" || typeof password !== "string") {
+    return { error: "Invalid form data" };
+  }
+
   const res = await fetch(process.env.INTERNAL_LOGIN_URL!, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name, password }),
   });
 
-  // 🔥 バックエンドのメッセージを拾う
+  // When login fails
   if (!res.ok) {
     let message = "Login failed";
 
@@ -30,7 +35,7 @@ export async function loginAction(
         message = data.error;
       }
     } catch {
-      // JSON がパースできなかった時だけ無視
+      // Ignore JSON parsing errors
     }
 
     return { error: message };
@@ -39,13 +44,13 @@ export async function loginAction(
   const data = await res.json();
   const token = data.session_token;
 
-  // Cookie 保存
+  // Set cookie
   (await cookies()).set("session_token", token, {
     httpOnly: true,
     secure: true,
     sameSite: "strict",
   });
 
-  // 🔥 成功時は redirect（state は返さず中断して遷移）
+  // Redirect to home page after successful login
   redirect("/");
 }
