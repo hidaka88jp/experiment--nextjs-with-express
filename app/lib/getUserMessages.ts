@@ -21,7 +21,10 @@ export async function getUserMessages(): Promise<Message[]> {
     cache: "no-store", // set to SSR
   });
 
-  if (!res.ok) return [];
+  if (!res.ok) {
+    console.error("Failed to fetch user messages");
+    return [];
+  }
 
   return res.json();
 }
