@@ -13,6 +13,18 @@ export async function registerAction(
   const name = formData.get("name");
   const password = formData.get("password");
 
+  // Basic validation
+  if (typeof name !== "string" || typeof password !== "string") {
+    return { error: "Invalid form data" };
+  }
+
+  if (name.trim().length < 3) {
+    return { error: "Name must be at least 3 characters" };
+  }
+  if (password.trim().length < 6) {
+    return { error: "Password must be at least 6 characters" };
+  }
+
   const res = await fetch(process.env.INTERNAL_REGISTER_URL!, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
