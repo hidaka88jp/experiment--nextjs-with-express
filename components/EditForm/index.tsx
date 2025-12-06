@@ -7,9 +7,11 @@ import { useRouter } from "next/navigation";
 export function EditForm({
   id,
   initialMessage,
+  onEditingChange,
 }: {
   id: number;
   initialMessage: string;
+  onEditingChange?: (isOpen: boolean) => void;
 }) {
   const [open, setOpen] = useState(false);
   const [msg, setMsg] = useState(initialMessage);
@@ -26,6 +28,7 @@ export function EditForm({
 
     router.refresh(); // ← Refresh the page to show updated message
     setOpen(false); // ← Close the form after updating
+    onEditingChange?.(false);
   }
 
   return (
@@ -35,8 +38,9 @@ export function EditForm({
           <span>{initialMessage}</span>
           <button
             onClick={() => {
-              setError("");   // ← Clear previous errors
+              setError(""); // ← Clear previous errors
               setOpen(true);
+              onEditingChange?.(true);
             }}
             className="px-2 py-1 bg-teal-700 text-gray-50 border border-teal-700 rounded-md text-center hover:bg-transparent hover:text-teal-700"
           >
@@ -47,7 +51,10 @@ export function EditForm({
 
       {open && (
         <>
-          <form action={handleUpdate} className="flex justify-between items-center gap-2">
+          <form
+            action={handleUpdate}
+            className="flex justify-between items-center gap-2"
+          >
             <input type="hidden" name="id" value={id} />
             <input
               name="message"
@@ -56,8 +63,20 @@ export function EditForm({
               className="w-full border border-gray-400 px-2 py-1 rounded-md"
             />
             <div className="flex gap-2">
-              <button type="submit" className="px-2 py-1 bg-sky-700 text-gray-50 border border-sky-700 rounded-md text-center hover:bg-transparent hover:text-sky-700">Save</button>
-              <button type="button" onClick={() => setOpen(false)} className="px-2 py-1 bg-gray-700 text-gray-50 border border-gray-700 rounded-md text-center hover:bg-transparent hover:text-gray-700">
+              <button
+                type="submit"
+                className="px-2 py-1 bg-sky-700 text-gray-50 border border-sky-700 rounded-md text-center hover:bg-transparent hover:text-sky-700"
+              >
+                Save
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setOpen(false);
+                  onEditingChange?.(false);
+                }}
+                className="px-2 py-1 bg-gray-700 text-gray-50 border border-gray-700 rounded-md text-center hover:bg-transparent hover:text-gray-700"
+              >
                 Cancel
               </button>
             </div>

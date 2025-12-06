@@ -3,11 +3,9 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 
 import { LogoutButton } from "@/components/LogoutButton";
-import { EditForm } from "@/components/EditForm";
+import { EditRow } from "@/components/EditRow";
 import { getUserBySession } from "@/app/lib/getUserBySession";
 import { getUserMessages } from "@/app/lib/getUserMessages";
-import { deleteMessageAction } from "@/app/actions/deleteMessage";
-import { DeleteButton } from "@/components/DeleteButton";
 
 export default async function DashboardPage() {
   const cookieStore = await cookies();
@@ -25,13 +23,7 @@ export default async function DashboardPage() {
         </h2>
         <ul className="my-8">
           {messages.map((msg) => (
-            <li key={msg.id} className="my-2 py-2 border-b border-zinc-500">
-
-              <div className="flex justify-between gap-1 items-center">
-                <EditForm id={msg.id} initialMessage={msg.message} />
-                <DeleteButton id={msg.id} action={deleteMessageAction} />
-              </div>
-            </li>
+            <EditRow key={msg.id} id={msg.id} message={msg.message} />
           ))}
         </ul>
         <Link
