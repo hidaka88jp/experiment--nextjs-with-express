@@ -6,10 +6,22 @@ import { cookies } from "next/headers";
 export async function postMessage(formData: FormData) {
   const message = formData.get("message");
 
-  if (!message || typeof message !== "string") {
-    return { error: "Message is required" };
+  // --- Type check ---
+  if (typeof message !== "string") {
+    return { error: "Invalid message format" };
   }
 
+  // --- Blank check ---
+  if (message.trim().length === 0) {
+    return { error: "Message cannot be empty" };
+  }
+
+  // --- Length check ---
+  if (message.length > 500) {
+    return { error: "Message too long (max 500)" };
+  }
+
+  // --- Authentication ---
   const cookieStore = await cookies();
   const token = cookieStore.get("session_token");
   if (!token) return { error: "Not authenticated" };
